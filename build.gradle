@@ -8,6 +8,9 @@ repositories {
 }
 
 dependencies {
+    implementation group: 'org.springframework', name: 'spring-web', version: '5.3.22'
+    implementation group: 'org.codehaus.groovy', name: 'groovy', version: '3.0.12'
+    
     testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-groovy-3.0'
 }
 
