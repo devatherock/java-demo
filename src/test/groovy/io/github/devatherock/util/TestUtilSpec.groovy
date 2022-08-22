@@ -8,4 +8,9 @@ class TestUtilSpec extends Specification {
         expect:
         TestUtil.sayHello() == 'Hello'
     }
+
+    void 'test custom source set'() {
+        expect:
+        TestUtilSpec.class.classLoader.getResourceAsStream('config/checkstyle.xml').text.contains('SuppressWarningsFilter')
+    }
 }

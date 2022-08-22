@@ -18,3 +18,8 @@ test {
         events 'passed', 'skipped'
     }
 }
+
+sourceSets.main.resources {
+    srcDir '../gradle-includes'
+    include 'config/*'
+}
