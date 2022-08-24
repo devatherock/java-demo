@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'groovy'
+    id "com.github.davidmc24.gradle.plugin.avro" version "1.3.0"
 }
 
 repositories {
@@ -8,7 +9,21 @@ repositories {
 }
 
 dependencies {
+    implementation "org.apache.avro:avro:1.11.0"
+    
     testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-groovy-3.0'
+}
+
+generateAvroJava {
+    source("src/main/resources/avro")
+    include("**/*.avsc")
+    outputDir = file("build/generated-main-avro-java")
+}
+
+generateAvroProtocol {
+    source("src/main/resources/avro")
+    include("**/*.avdl")
+    outputDir = file("build/generated-main-avro-java")
 }
 
 test {
