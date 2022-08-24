@@ -1,0 +1,11 @@
+pluginManagement {
+    repositories {
+        if (settings.hasProperty('customPortal')) {
+            maven {
+              url settings.customPortal
+            }
+        } else {
+            gradlePluginPortal()
+        }
+    }
+}

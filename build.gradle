@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'groovy'
+    id 'com.diffplug.spotless' version '6.5.2'
 }
 
 repositories {
