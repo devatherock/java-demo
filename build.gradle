@@ -8,6 +8,11 @@ repositories {
 }
 
 dependencies {
+	def lombokVersion = '1.18.24'
+
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+
     testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-groovy-3.0'
 }
 
