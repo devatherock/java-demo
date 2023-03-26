@@ -21,7 +21,6 @@ public class TestUtil {
 	}
 
 	public static Set<Employee> transformResultSet(ResultSet resultSet) throws SQLException {
-		Set<Employee> employees = new LinkedHashSet<>();
 		Map<BigInteger, Employee> employeeMap = new HashMap<>();
 		Map<BigInteger, BigInteger> employeeToManagerMap = new HashMap<>();
 
@@ -39,21 +38,22 @@ public class TestUtil {
 			}
 			
 			Employee employee = new Employee(id, fullName, position, hired, salary, null);
-			employees.add(employee);
 			employeeMap.put(id, employee);
 		}
 		
 		employeeToManagerMap.forEach((key, value) -> {
 			Employee employee = employeeMap.get(key);
 			Employee manager = employeeMap.get(employeeToManagerMap.get(key));
-			employee.setManager(manager);
+			Employee employeeWithManager = new Employee(
+					employee.getId(), employee.getFullName(), employee.getPosition(), employee.getHireDate(),
+					employee.getSalary(), manager);
+			employeeMap.put(employee.getId(), employeeWithManager);
 		});
 		
-		return employees;
+		return new LinkedHashSet<>(employeeMap.values());
 	}
-	
+
 	@Getter
-	@Setter
 	@AllArgsConstructor
 	public static class Employee {
 		private BigInteger id;
