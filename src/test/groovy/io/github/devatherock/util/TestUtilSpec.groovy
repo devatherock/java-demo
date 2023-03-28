@@ -22,25 +22,30 @@ class TestUtilSpec extends Specification {
         Set<Employee> employeesSet = TestUtil.transformResultSet(resultSet)
 
         then: 'set resultset size'
-        3 * resultSet.next() >>> [true, true, false]
+        4 * resultSet.next() >>> [true, true, true, false]
 
         and: 'data rows'
-        2 * resultSet.getInt(1) >>> [1, 2]
-        2 * resultSet.getString('firstName') >>> ['first1', 'first2']
-        2 * resultSet.getString('lastName') >>> ['last1', 'last2']
-        2 * resultSet.getString('middleName') >>> ['middle1', 'middle2']
-        2 * resultSet.getString('position') >>> ['EMPLOYEE', 'MANAGER']
-        2 * resultSet.getDate(7) >>> [new Date(currentTime), new Date(currentTime)]
-        2 * resultSet.getBigDecimal('salary') >>> [new BigDecimal('10000'), new BigDecimal('15000')]
-        2 * resultSet.getInt(6) >>> [2, 0]
+        3 * resultSet.getInt(1) >>> [1, 2, 3]
+        3 * resultSet.getString('firstName') >>> ['first1', 'first2', 'first3']
+        3 * resultSet.getString('lastName') >>> ['last1', 'last2', 'last3']
+        3 * resultSet.getString('middleName') >>> ['middle1', 'middle2', 'middle2']
+        3 * resultSet.getString('position') >>> ['EMPLOYEE', 'MANAGER', 'MANAGER']
+        3 * resultSet.getDate(7) >>> [new Date(currentTime), new Date(currentTime), new Date(currentTime)]
+        3 * resultSet.getBigDecimal('salary') >>> [new BigDecimal('10000'), new BigDecimal('15000'), new BigDecimal('20000')]
+        3 * resultSet.getInt(6) >>> [2, 3, 0]
 
         and: 'verify result'
-        employeesSet.size() == 2
+        employeesSet.size() == 3
         def employees = new ArrayList<Employee>(employeesSet)
         employees[0].id == 1
         employees[0].manager
         employees[0].manager.id == 2
+        employees[0].manager.manager
+        employees[0].manager.manager.id == 3
         employees[1].id == 2
-        !employees[1].manager
+        employees[1].manager
+        employees[1].manager.id == 3
+        employees[2].id == 3
+        !employees[2].manager
     }
 }
