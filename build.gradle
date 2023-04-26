@@ -7,6 +7,9 @@ repositories {
     mavenCentral()
 }
 
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
 dependencies {
 	def lombokVersion = '1.18.24'
 
@@ -22,4 +25,10 @@ test {
         showStandardStreams = Boolean.getBoolean('all.logs')
         events 'passed', 'skipped'
     }
+}
+
+jar {
+  manifest {
+    attributes 'Main-Class': 'io.github.devatherock.util.Example'
+  }
 }
