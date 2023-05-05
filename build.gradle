@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'groovy'
-    id 'jacoco'
+    id("net.saliman.cobertura") version "4.0.0"
 }
 
 repositories {
@@ -15,6 +15,7 @@ dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 
     testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-groovy-3.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.9.3'
 }
 
 test {
@@ -23,4 +24,8 @@ test {
         showStandardStreams = Boolean.getBoolean('all.logs')
         events 'passed', 'skipped'
     }
+}
+
+cobertura {
+   coverageFormats = ['html', 'xml']
 }
