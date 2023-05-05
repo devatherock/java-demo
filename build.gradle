@@ -23,4 +23,12 @@ test {
         showStandardStreams = Boolean.getBoolean('all.logs')
         events 'passed', 'skipped'
     }
+    finalizedBy(jacocoTestReport)
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        html.required = true
+    }
 }
