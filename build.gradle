@@ -1,34 +1,42 @@
 plugins {
-    id 'java'
-    id 'groovy'
-    id 'jacoco'
+	id 'java'
+	id 'groovy'
+	id 'jacoco'
+	id 'com.diffplug.spotless' version '6.18.0'
 }
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
 	def lombokVersion = '1.18.24'
 
-    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 
-    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-groovy-3.0'
+	testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-groovy-3.0'
 }
 
 test {
-    useJUnitPlatform()
-    testLogging {
-        showStandardStreams = Boolean.getBoolean('all.logs')
-        events 'passed', 'skipped'
-    }
-    finalizedBy(jacocoTestReport)
+	useJUnitPlatform()
+	testLogging {
+		showStandardStreams = Boolean.getBoolean('all.logs')
+		events 'passed', 'skipped'
+	}
+	finalizedBy(jacocoTestReport)
 }
 
 jacocoTestReport {
-    reports {
-        xml.required = true
-        html.required = true
-    }
+	reports {
+		xml.required = true
+		html.required = true
+	}
+}
+
+spotless {
+	groovyGradle {
+		target '*.gradle'
+		greclipse()
+	}
 }
