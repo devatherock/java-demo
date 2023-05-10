@@ -14,7 +14,7 @@ dependencies {
 
 	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
-	
+
 	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.36'
 	implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.7'
 
@@ -43,3 +43,5 @@ spotless {
 		greclipse()
 	}
 }
+
+build.dependsOn spotlessApply
