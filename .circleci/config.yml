@@ -1,0 +1,26 @@
+version: 2.1
+jobs:
+  test:
+    docker:
+      - image: golang:1.19.3-alpine3.16
+        auth:
+          username: $DOCKER_USERNAME
+          password: $DOCKER_PASSWORD
+    resource_class: small
+    working_directory: ~/test
+    steps:
+      - checkout
+          path: app
+      - run: pwd
+      - run: ls -all
+
+workflows:
+  version: 2.1
+  pr_check:
+    jobs:
+      - test:
+          context:
+            - docker-credentials
+          filters:
+            branches:
+              only: circleci
