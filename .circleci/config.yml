@@ -13,6 +13,7 @@ jobs:
           path: app
       - run: pwd
       - run: ls -all
+      - run: cd app && ls -all
 
 workflows:
   version: 2.1
