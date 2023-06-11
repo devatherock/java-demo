@@ -9,7 +9,7 @@ jobs:
     resource_class: small
     working_directory: ~/test
     steps:
-      - checkout
+      - checkout:
           path: app
       - run: pwd
       - run: ls -all
