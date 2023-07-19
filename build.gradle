@@ -51,3 +51,5 @@ spotless {
 }
 
 build.dependsOn spotlessApply
+
+apply from: 'codenarc.gradle'
