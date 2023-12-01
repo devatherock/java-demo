@@ -5,7 +5,7 @@ pipeline {
         stage('build') {
             steps {
                 sh """#!/bin/bash
-                ./gradlew candidate
+                ./gradlew final
                 """
             }
         }
