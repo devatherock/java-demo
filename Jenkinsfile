@@ -7,9 +7,10 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'github-auth', 
                                  passwordVariable: 'GRGIT_PASS', 
                                  usernameVariable: 'GRGIT_USER')]) {
-                    sh """#!/bin/bash
+                    sh '''#!/bin/bash
+                       git remote add auth https://$GRGIT_PASS@github.com/devatherock/java-demo.git
                        ./gradlew candidate
-                    """
+                    '''
                 }
             }    
         }
