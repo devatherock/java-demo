@@ -5,24 +5,9 @@ pipeline {
         stage('build') {
             steps {
                 sh """#!/bin/bash
-                ./gradlew clean build
+                ./gradlew candidate
                 """
             }
         }
-    }
-
-    post {
-    	success {
-            recordCoverage(
-            	tools: [
-            		[
-            			parser: 'JACOCO',
-            			pattern: '**/jacocoTestReport.xml'
-        			]
-        		], 
-            	id: 'jacoco', 
-            	name: 'Jacoco Coverage'
-        	)
-    	}
     }
 }

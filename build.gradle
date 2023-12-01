@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'groovy'
     id 'jacoco'
+    id 'nebula.release' version '18.0.4'
 }
 
 repositories {
