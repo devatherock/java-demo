@@ -4,10 +4,14 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh """#!/bin/bash
-                ./gradlew candidate
-                """
-            }
+                withCredentials([usernamePassword(credentialsId: 'github-auth', 
+                                 passwordVariable: 'GRGIT_PASS', 
+                                 usernameVariable: 'GRGIT_USER')]) {
+                    sh """#!/bin/bash
+                       ./gradlew candidate
+                    """
+                }
+            }    
         }
     }
 }
