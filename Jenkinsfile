@@ -8,7 +8,7 @@ pipeline {
                                  passwordVariable: 'GRGIT_PASS', 
                                  usernameVariable: 'GRGIT_USER')]) {
                     sh '''#!/bin/bash
-                       git config url."https://${GRGIT_PASS}@github.com".insteadOf https://github.com
+                       git remote add auth https://$GRGIT_PASS@github.com/devatherock/java-demo.git
                        ./gradlew candidate
                     '''
                 }
