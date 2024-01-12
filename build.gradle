@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'groovy'
 	id 'jacoco'
+	id 'checkstyle'
 	id 'com.diffplug.spotless' version '6.18.0'
 }
 
@@ -48,6 +49,10 @@ spotless {
 		target '*.gradle'
 		greclipse()
 	}
+}
+
+checkstyle {
+    toolVersion = '10.12.5'
 }
 
 build.dependsOn spotlessApply

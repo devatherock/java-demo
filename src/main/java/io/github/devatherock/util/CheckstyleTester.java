@@ -1,10 +1,11 @@
 package io.github.devatherock.util;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.awt.*;
 
-public class TestUtil {
+public class CheckstyleTester {
 
-    public static String sayHello() {
+    public void fileLengthTest() {
         System.out.println("line 1");
         System.out.println("line 2");
         System.out.println("line 3");
@@ -16,6 +17,5 @@ public class TestUtil {
         System.out.println("line 9");
         System.out.println("line 10");
         System.out.println("line 11");
-        return "Hello";
     }
 }
