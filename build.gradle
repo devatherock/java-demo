@@ -18,6 +18,7 @@ dependencies {
 	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.36'
 	implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.7'
 	implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
+	implementation group: 'org.apache.httpcomponents.client5', name: 'httpclient5', version: '5.2'
 
 	testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-groovy-3.0'
 }
