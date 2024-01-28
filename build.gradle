@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'groovy'
 	id 'jacoco'
-	id 'com.diffplug.spotless' version '6.18.0'
+	id 'com.diffplug.spotless' version '6.+'
 }
 
 repositories {
@@ -51,3 +51,7 @@ spotless {
 }
 
 build.dependsOn spotlessApply
+
+project.buildscript.configurations.classpath.resolvedConfiguration.firstLevelModuleDependencies.each {
+	println("Plugin: name=${it.moduleGroup}, version=${it.moduleVersion}")
+}
