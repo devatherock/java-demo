@@ -36,7 +36,7 @@ class TestUtilSpec extends Specification {
           ]'''.stripIndent().trim()
 
         expect:
-        TestUtil.toJsonHack(testArray()).trim() == expected
+        TestUtil.toJsonHack(testArray()) == expected
     }
 
     private BsonArray testArray() {

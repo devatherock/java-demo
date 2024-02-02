@@ -56,6 +56,6 @@ public class TestUtil {
 		BsonDocument temp = new BsonDocument("x", bsonArray);
 		String json = temp.toJson(JsonWriterSettings.builder().indent(true).build());
 
-		return json.substring(9, json.length() - 1);
+		return json.substring(9, json.length() - 1).stripTrailing();
 	}
 }
