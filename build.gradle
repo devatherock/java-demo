@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
 	def lombokVersion = '1.18.24'
+	String junitVersion = '5.10.1'
 
 	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
@@ -19,7 +20,12 @@ dependencies {
 	implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.7'
 	implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
 
+	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
+
 	testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-groovy-3.0'
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
 }
 
 test {
