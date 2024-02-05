@@ -11,9 +11,12 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class TestUtil {
@@ -51,7 +54,7 @@ public class TestUtil {
 		return result;
 	}
 
-	public static void addTypeDescription(List<String> propertyNames, List<String> getterNames,
+	private static void addTypeDescription(List<String> propertyNames, List<String> getterNames,
 			List<String> setterNames, String[] propertiesToExclude, List<Class<?>> propertyClasses, Class<?> beanClass,
 			Representer representer) {
 		TypeDescription typeDescription = new TypeDescription(beanClass);
@@ -63,5 +66,88 @@ public class TestUtil {
 		typeDescription.setExcludes(propertiesToExclude);
 
 		representer.addTypeDescription(typeDescription);
+	}
+
+	public static String toYamlNestedMaps() {
+		Map<String, Object> input = new HashMap<>();
+		Map<String, Object> innerMap = new HashMap<>();
+		innerMap.put("b", "c");
+		innerMap.put("d", "e");
+		input.put("a", innerMap);
+
+		DumperOptions dumperOptions = new DumperOptions();
+		dumperOptions.setDefaultFlowStyle(FlowStyle.BLOCK);
+		Yaml yaml = new Yaml(dumperOptions);
+		String result = yaml.dump(input);
+
+		LOGGER.info("Result: \n{}", result);
+		return result;
+	}
+
+	public static String toYamlNestedKeys(Map<String, Object> input) {
+		prepareInput(input);
+
+		DumperOptions dumperOptions = new DumperOptions();
+		dumperOptions.setDefaultFlowStyle(FlowStyle.BLOCK);
+		Yaml yaml = new Yaml(dumperOptions);
+		String result = yaml.dump(input);
+
+		LOGGER.info("Result: \n{}", result);
+		return result;
+	}
+
+	private static void prepareInput(Map<String, Object> input) {
+		List<String> keysToRemove = new ArrayList<>();
+		Map<String, Object> output = new HashMap<>();
+
+		input.forEach((key, value) -> {
+			if (key.contains(".")) {
+				keysToRemove.add(key);
+				output.putAll(mergeValues(output, splitKey(key, value)));
+			}
+		});
+
+		// Remove entries that have been converted into nested maps
+		keysToRemove.forEach(key -> {
+			input.remove(key);
+		});
+
+		// Add the nested maps
+		output.forEach((key, value) -> {
+			input.put(key, value);
+		});
+	}
+
+	private static Map<String, Object> mergeValues(Map<String, Object> completeOutput, Map<String, Object> tempOutput) {
+		Map.Entry<String, Object> entry = tempOutput.entrySet().stream().findFirst().get();
+		Map<String, Object> output = new HashMap<>();
+		output.putAll(completeOutput);
+
+		if (completeOutput.containsKey(entry.getKey())) {
+			output.put(entry.getKey(), mergeValues((Map<String, Object>) completeOutput.get(entry.getKey()),
+					(Map<String, Object>) entry.getValue()));
+		} else {
+			output.put(entry.getKey(), entry.getValue());
+		}
+
+		return output;
+	}
+
+	private static Map<String, Object> splitKey(String key, Object value) {
+		Map<String, Object> output = new HashMap<>();
+
+		int dotIndex = key.lastIndexOf('.');
+		if (dotIndex == -1 || dotIndex == key.length() - 1) {
+			output.put(key, value);
+		} else {
+			String innerKey = key.substring(dotIndex + 1, key.length());
+			Map<String, Object> innerObject = new HashMap<>();
+			innerObject.put(innerKey, value);
+
+			String outerKey = key.substring(0, dotIndex);
+			output.putAll(splitKey(outerKey, innerObject));
+		}
+
+		return output;
 	}
 }

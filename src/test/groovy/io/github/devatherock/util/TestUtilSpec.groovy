@@ -34,4 +34,56 @@ class TestUtilSpec extends Specification {
         Yaml yaml = new Yaml()
         yaml.load(output) == yaml.load(expectedOutput)
     }
+
+    void 'test to yaml nested keys'() {
+        given:
+        String expectedOutput = '''
+        a:
+          b: c
+          d: e
+          f:
+            g: h
+        i.: j
+        k: l
+        m:
+          n: o
+        p:
+          q:
+            r: s
+        '''
+
+        and:
+        def input = [
+                'a.b': 'c',
+                'a.d': 'e',
+                'a.f.g': 'h',
+                'i.': 'j',
+                'k': 'l',
+                'm': ['n': 'o'],
+                'p.q': ['r': 's'],
+        ]
+
+        when:
+        String output = TestUtil.toYamlNestedKeys(input)
+
+        then:
+        Yaml yaml = new Yaml()
+        yaml.load(output) == yaml.load(expectedOutput)
+    }
+
+    void 'test to yaml nested maps'() {
+        given:
+        String expectedOutput = '''
+        a:
+          b: c
+          d: e
+        '''
+
+        when:
+        String output = TestUtil.toYamlNestedMaps()
+
+        then:
+        Yaml yaml = new Yaml()
+        yaml.load(output) == yaml.load(expectedOutput)
+    }
 }
