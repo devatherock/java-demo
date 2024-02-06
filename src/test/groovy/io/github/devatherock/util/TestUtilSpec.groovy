@@ -86,4 +86,20 @@ class TestUtilSpec extends Specification {
         Yaml yaml = new Yaml()
         yaml.load(output) == yaml.load(expectedOutput)
     }
+
+    void 'test to yaml exclusions'() {
+        given:
+        String expectedOutput = '''
+        id: x12345
+        firstName: Test
+        lastName: User
+        '''
+
+        when:
+        String output = TestUtil.toYaml()
+
+        then:
+        Yaml yaml = new Yaml()
+        yaml.load(output) == yaml.load(expectedOutput)
+    }
 }

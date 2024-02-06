@@ -1,5 +1,6 @@
 package io.github.devatherock.util;
 
+import io.github.devatherock.domain.Employee;
 import io.github.devatherock.domain.ErrorGenInfo;
 import io.github.devatherock.domain.ResponseBody;
 import io.github.devatherock.domain.TraceInfo;
@@ -23,6 +24,25 @@ public class TestUtil {
 
 	public static String sayHello() {
 		return "Hello";
+	}
+
+	public static String toYaml() {
+		DumperOptions dumperOptions = new DumperOptions();
+		dumperOptions.setDefaultFlowStyle(FlowStyle.BLOCK);
+		Representer representer = new Representer(dumperOptions);
+
+		TypeDescription typeDescription = new TypeDescription(Employee.class);
+		typeDescription.setExcludes("name", "dateOfBirth"); // fields to exclude
+		representer.addTypeDescription(typeDescription);
+
+		// To disable the tag with class name
+		representer.addClassTag(Employee.class, Tag.MAP);
+
+		Yaml yaml = new Yaml(representer);
+		String result = yaml.dump(new Employee());
+
+		LOGGER.info("Result: \n{}", result);
+		return result;
 	}
 
 	public static String toYaml(ResponseBody yamlObject) {
