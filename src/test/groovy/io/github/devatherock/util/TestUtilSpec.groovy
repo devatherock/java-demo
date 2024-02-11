@@ -8,4 +8,12 @@ class TestUtilSpec extends Specification {
         expect:
         TestUtil.sayHello() == 'Hello'
     }
+
+    void 'test list field access'() {
+        when:
+        TestUtil.listFieldAccess()
+
+        then:
+        noExceptionThrown()
+    }
 }
