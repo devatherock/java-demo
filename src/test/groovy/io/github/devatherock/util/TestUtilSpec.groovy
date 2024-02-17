@@ -11,6 +11,14 @@ class TestUtilSpec extends Specification {
         TestUtil.sayHello() == 'Hello'
     }
 
+    void 'test read yaml'() {
+        when:
+        TestUtil.readYaml()
+
+        then:
+        noExceptionThrown()
+    }
+
     void 'test create yaml'() {
         given:
         String expectedOutput = '''

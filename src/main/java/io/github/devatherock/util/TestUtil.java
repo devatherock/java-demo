@@ -12,6 +12,8 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,6 +26,19 @@ public class TestUtil {
 
 	public static String sayHello() {
 		return "Hello";
+	}
+
+	public static void readYaml() throws IOException {
+		InputStream inputStream = TestUtil.class.getClassLoader()
+				.getResourceAsStream("application.yml");
+		Yaml yaml = new Yaml();
+		HashMap yamlMap = yaml.load(inputStream);
+		System.out.println(yamlMap);
+		for (Object o : yamlMap.entrySet()) {
+			System.out.println(o);
+		}
+
+		inputStream.close();
 	}
 
 	public static String toYaml() {

@@ -1,0 +1,4 @@
+dmsMapping:
+  input_layer_name : "sign-values"
+  output_Layer_volatile : "dms-range-v1"
+  output_layer_IML : "dms-ts-mapped-data-iml"
