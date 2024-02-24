@@ -22,6 +22,7 @@ dependencies {
 	testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-groovy-3.0'
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
+	testImplementation group: 'io.github.artsok', name: 'rerunner-jupiter', version: '2.1.6'
 }
 
 test {
