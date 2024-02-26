@@ -19,6 +19,9 @@ dependencies {
 	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.36'
 	implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.7'
 
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.0'
+	implementation group: 'org.threeten', name: 'threeten-extra', version: '1.7.2'
+
 	testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-groovy-3.0'
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
