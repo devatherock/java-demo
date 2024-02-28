@@ -28,13 +28,15 @@ public class TestUtilTest {
 		Assertions.assertEquals(2011, bar.getYearWeek().getYear());
 
 		objectMapper = new ObjectMapper();
-//		objectMapper.addMixIn(YearWeek.class, YearWeekMixIn.class);
+		objectMapper.addMixIn(YearWeek.class, YearWeekMixIn.class);
+		Foo foo1 = objectMapper.readValue(json, Foo.class);
+		Assertions.assertEquals(2011, foo1.yearWeek().getYear());
 
+		objectMapper = new ObjectMapper();
 		SimpleModule module = new SimpleModule();
 		module.addDeserializer(YearWeek.class, new YearWeekDeserializer());
 		objectMapper.registerModule(module);
-
-		Foo foo = objectMapper.readValue(json, Foo.class);
-		Assertions.assertEquals(2011, foo.yearWeek().getYear());
+		Foo foo2 = objectMapper.readValue(json, Foo.class);
+		Assertions.assertEquals(2011, foo2.yearWeek().getYear());
 	}
 }
