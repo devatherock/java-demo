@@ -1,0 +1,10 @@
+{namespace templates.mail}
+
+/**
+ * Account request submitted subject
+ */
+{template accountRequestSubmittedSubject}
+  {@param username: string}
+  {@inject brand: string}
+  {$brand} account request: {$username}
+{/template}
