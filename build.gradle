@@ -1,8 +1,5 @@
 plugins {
 	id 'java'
-	id 'groovy'
-	id 'jacoco'
-	id 'com.diffplug.spotless' version '6.18.0'
 }
 
 repositories {
@@ -10,46 +7,12 @@ repositories {
 }
 
 dependencies {
-	def lombokVersion = '1.18.24'
-	String junitVersion = '5.10.1'
-
-	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
-	compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
-
-	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.36'
-	implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.7'
-
-	testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-groovy-3.0'
-	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
-	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
+	annotationProcessor project(':annotation-processor')
+	compileOnly project(':annotation-processor')
 }
 
-test {
-	useJUnitPlatform()
-	testLogging {
-		showStandardStreams = Boolean.getBoolean('all.logs')
-		events 'passed', 'skipped'
-	}
-	finalizedBy(jacocoTestReport)
-}
-
-jacocoTestReport {
-	reports {
-		xml.required = true
-		html.required = true
+jar {
+	manifest {
+		attributes 'Main-Class': 'io.github.devatherock.app.App'
 	}
 }
-
-spotless {
-	java {
-		eclipse()
-		toggleOffOn()
-	}
-
-	groovyGradle {
-		target '*.gradle'
-		greclipse()
-	}
-}
-
-build.dependsOn spotlessApply
